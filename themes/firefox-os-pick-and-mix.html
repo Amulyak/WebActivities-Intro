@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+<!-- <html lang="en-US"> -->
+<html lang="en-US" class="fade">
+<!-- 
+  ^ a class of "fade" makes slides fade smoothly into one another
+ -->
+<!-- <html lang="en-US" class="nonumbers"> -->
+<!-- 
+  If you want no numbers on the slides add a "nonumbers" class 
+  to the HTML element.
+  Adding a class of "fade" will make slides fade into another. 
+-->
+<head>
+  <meta charset="UTF-8">
+  <title>Your talk title here</title>
+<!-- 
+  If you upload your slides to the web, ensure that you have 
+  a good title - this shows up in search results and social
+  media links
+ -->
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="themes/mozilla/styles/style.css">
+  <style type="text/css">
+    div[id$='bullets'].slide > div::after {
+      content: 'For Information only, do NOT present';
+      background: rgba(200,0,0,0.5);
+      color: #fff;
+      position: absolute;
+      top: 20px;
+      right: 0;
+      padding: 5px 20px;
+      transform: rotate(90deg) translate(52%,-150px);
+      border-radius: 5px;
+    }
+    .full div[id$='bullets'].slide > div::after {
+      animation: wiggle alternate 1s infinite;
+    }
+    @keyframes wiggle {
+      from {
+        transform: rotate(90deg) translate(52%,-150px);
+      }
+      to {
+        transform: rotate(90deg) translate(52%,-160px);
+      }
+    }
+  </style>
+</head>
+<body class="list">
+
+  <header class="caption">
+    <h1>Your talk title here</h1>
+    <p class="footer">
+      {Your name}, 
+      {your <a href="http://twitter.com/">@twitter</a> or 
+      <a href="mailto:you@email.com">you@email.com</a>}
+    </p>
+  </header>
+  <aside class="talkdescription">
+    <p>This slide deck is using the shower system - roll over the previews to see the notes and click any slide to go into presentation mode. Then use keys to navigate. <button onclick="goFullScreen()">Go fullscreen</button></p>
+    <p class="abstract">
+      <strong>Abstract: </strong>
+       Add your talk abstract here
+    </p>
+  </aside>
+
+<!-- 
+    Simply copy the whole block for each slide you want.
+  Special slides get extra classes. Each slide needs an ID 
+  to allow for bookmarking and target jumping.
+-->
+
+ 
+<!-- end slide block -->
+
+
+<!-- ===================================================================
+WEB ACTIVITIES
+======================================================================== -->
+
+  <div id="zomgactivities" class="slide shout"><div>
+    <section>
+      <header>
+        <h2>Web Activities</h2>
+      </header>
+    <footer class="notes">
+    </footer>
+    </section>
+  </div></div>
+
+  <div id="webactbullets" class="slide"><div>
+    <section>
+      <header>
+        <h2>Web Activities</h2>
+      </header>
+      <ul class="longlist">
+        <li>A proposal to get access to hardware by keeping the user in control instead of authenticating on their behalf</li>
+        <li>Comparable to Android Intents, but with a more limited scope that makes sense for the web</li>
+        <li>A technique to create an ecosystem of apps on the device - apps can register as handlers for certain tasks and other apps use them</li>
+        <li>A simple way to get access to hardware and data without needing to package your app and host it from the market</li>
+        <li>Highly secure as nothing happens without the user initiating it</li>
+      </ul>
+      <p class="demourl">
+        <a href="https://wiki.mozilla.org/WebAPI/WebActivities">WebActivies Wiki</a>
+      </p>      
+      <footer class="notes">
+      </footer>
+    </section>
+  </div></div>
+
+  <div id="activities" class="slide"><div>
+    <section>
+      <header>
+        <h2>Web activities</h2>
+      </header>
+      <ul class="lots">
+        <li>configure</li>
+        <li>costcontrol</li>
+        <li>dial</li>
+        <li>open</li>
+        <li>pick</li>
+        <li>record</li>
+        <li>save-bookmark</li>
+        <li>share</li>
+        <li>view</li>
+        <li>new, f.e type: “websms/sms” or “webcontacts/contact” </li>
+      </ul>
+    <footer class="notes">
+      If you want to access the camera or the address book without packaging your application, there is an alternative called Web Activities. These are much like Web Intents were for Chrome, but more focused on real use cases of the web rather than Android. Using Web Activities you can access the hardware without having to authenticate on the user's behalf. Instead, the users get prompted to use the apps they always use to give you what your app wants.
+    </footer>
+    </section>
+  </div></div>
+
+ <div id="callactivity" class="slide"><div>
+    <section>
+      <header>
+        <h2>Sending a number to the phone</h2>
+      </header>
+      <pre>
+        <code>var call = new MozActivity({</code>
+        <code>  name: "dial",</code>
+        <code>  data: {</code>
+        <code>    number: "+1804100100"</code>
+        <code>  }</code>
+        <code>});</code>
+      </pre>
+      <footer class="notes">
+        This, as an example, is a call activity. When this JavaScript executes, the user will be sent to the dialer app (or Skype, depending on what app was defined as the default one), the number is sent to the app and the user needs to initiate the call. This is the main difference to WebAPIs - the user has the final say. When the call is denied or the user hung up the phone would go back to your app.
+      </footer>
+    </section>
+  </div></div>
+
+  <div id="imageactivity" class="slide"><div>
+    <section>
+      <header>
+        <h2>Get an image from the phone (1/2)</h2>
+      </header>
+      <img src="pictures/fxos/pick-activity.jpg" alt="Pick activity" class="right shadow">
+      <pre>
+        <code>var getphoto = new MozActivity({</code>
+        <code>  name: "pick",</code>
+        <code>  data: {</code>
+        <code>    type: ["image/png",</code> 
+        <code>           "image/jpg", </code>
+        <code>           "image/jpeg"]</code>
+        <code>  }</code>
+        <code>});</code>
+      </pre>
+      <footer class="notes">
+        The 'pick' activity is most probably the most useful one, as it allows you to tell the user that you want something from the device. In this case we define in the MIME type array that we are expecting an image. This would result in the screenshot shown on the right - the user gets asked to give us an image, either from the wallpaper or the photos folder or by taking a new photo with the camera. 
+      </footer>
+    </section>
+  </div></div>
+
+  <div id="imageactivity2" class="slide"><div>
+    <section>
+      <header>
+        <h2>Get an image from the phone (2/2)</h2>
+      </header>
+      <pre>
+        <code>getphoto.onsuccess = function () {</code>
+        <code>  var img = document.createElement("img");</code>
+        <code>  if (this.result.blob.type.indexOf("image") != -1) {</code>
+        <code>    img.src = window.URL.createObjectURL(this.result.blob);</code>
+        <code>  }</code>
+        <code>};</code>
+        <code>getphoto.onerror = function () { // error</code>
+        <code>};</code>
+      </pre>
+      <footer class="notes">
+        To retrieve the photo all you need is a simple event handler in which you get the image as a data blob and you can play with it in your app.
+      </footer>
+    </section>
+  </div></div>
+
+
+  <div id="boilerplate" class="slide"><div>
+    <section>
+      <header>
+        <h2>Web Activities Boiler Plate</h2>
+      </header>
+      <img src="pictures/fxos/boilerplate.jpg" 
+           alt="Firefox OS Boiler Plate" 
+           class="middle shadow" height="400">
+      <p class="demourl">
+        <a href="https://github.com/robnyman/Firefox-OS-Boilerplate-App">Firefox OS Boiler Plate app</a>
+      </p>
+    <footer class="notes">
+      The Firefox OS Boiler Plate app by Robert Nyman is a perfect start to get accustomed to Web Activities. It is a showcase of buttons calling different web activities. Simply use the ones you want to have and delete the others. The code is highly commented to show you where to put your functionality. 
+    </footer>
+    </section>
+  </div></div>
+
+  
+
+<!-- ===================================================================
+AND… I'M SPENT
+======================================================================== -->
+
+  <div id="thanks" class="slide"><div>
+    <section>
+      <header>
+        <h2>Thanks</h2>
+      </header>
+      <img src="pictures/mozillaoverview/redpanda.jpg" class="right" alt="Red panda (Firefox)">
+      <ul class="nobull">
+        <li>{name}</li>
+        <li>{title}</li>
+        <li>{<a href="http://twitter.com/">@twitter</a>}</li>
+        <li><strong>Slides</strong>: {slideurl}</li>
+      </ul>
+      <small class="credits">
+        <a href="http://www.flickr.com/photos/yortw/5798336827/">Photo by Yortw</a>
+      </small>
+
+    <footer class="notes">
+    </footer>
+
+    </section>
+  </div></div>
+
+  <!--
+    To hide progress bar from entire presentation
+    just remove “progress” element.
+    -->
+  
+  <script src="scripts/script.js"></script>
+  <!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
+</body>
+</html>

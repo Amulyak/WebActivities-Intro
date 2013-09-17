@@ -1,0 +1,350 @@
+<!DOCTYPE HTML>
+<!-- <html lang="en-US"> -->
+<html lang="en-US" class="fade">
+<!-- 
+  ^ a class of "fade" makes slides fade smoothly into one another
+ -->
+<!-- <html lang="en-US" class="nonumbers"> -->
+<!-- 
+  If you want no numbers on the slides add a "nonumbers" class 
+  to the HTML element.
+  Adding a class of "fade" will make slides fade into another. 
+-->
+<head>
+  <meta charset="UTF-8">
+  <title>Your talk title here</title>
+<!-- 
+  If you upload your slides to the web, ensure that you have 
+  a good title - this shows up in search results and social
+  media links
+ -->
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="themes/mozilla/styles/style.css">
+  <style type="text/css">
+    div[id$='bullets'].slide > div::after {
+      content: '';
+      background: rgba(200,0,0,0.5);
+      color: #fff;
+      position: absolute;
+      top: 20px;
+      right: 0;
+      padding: 5px 20px;
+      transform: rotate(90deg) translate(52%,-150px);
+      border-radius: 5px;
+    }
+    .full div[id$='bullets'].slide > div::after {
+      animation: wiggle alternate 1s infinite;
+    }
+    @keyframes wiggle {
+      from {
+        transform: rotate(90deg) translate(52%,-150px);
+      }
+      to {
+        transform: rotate(90deg) translate(52%,-160px);
+      }
+    }
+  </style>
+</head>
+<body class="list">
+
+  <header class="caption">
+    <h1>WebActivites</h1>
+    <p class="footer">
+      Keerthi Chandra 
+    </p>
+  </header>
+  <aside class="talkdescription">
+    <p> <button onclick="goFullScreen()">Go fullscreen</button></p>
+    <p class="abstract">
+      <strong>Abstract: </strong>
+       A presentation describing various Webactivities which are used by Developers to Create APPs for FirefoxOS.
+    </p>
+  </aside>
+
+<!-- 
+    Simply copy the whole block for each slide you want.
+  Special slides get extra classes. Each slide needs an ID 
+  to allow for bookmarking and target jumping.
+-->
+
+ 
+<!-- end slide block -->
+
+
+<!-- ===================================================================
+WEB ACTIVITIES
+======================================================================== -->
+
+  <div id="zomgactivities" class="slide shout"><div>
+    <section>
+      <header>
+        <h2>Web Activities</h2>
+      </header>
+    <footer class="notes">
+    </footer>
+    </section>
+  </div></div>
+
+  <div id="webactbullets" class="slide"><div>
+    <section>
+      <header>
+        <h2>Web Activities</h2>
+      </header>
+      <ul class="longlist">
+        <li>A proposal to get access to hardware by keeping the user in control instead of authenticating on their behalf</li>
+        <li>Comparable to Android Intents, but with a more limited scope that makes sense for the web</li>
+        <li>A technique to create an ecosystem of apps on the device - apps can register as handlers for certain tasks and other apps use them</li>
+        <li>A simple way to get access to hardware and data without needing to package your app and host it from the market</li>
+        <li>Highly secure as nothing happens without the user initiating it</li>
+      </ul>
+      <p class="demourl">
+        <a href="https://wiki.mozilla.org/WebAPI/WebActivities">WebActivies Wiki</a>
+      </p>      
+      <footer class="notes">
+      </footer>
+    </section>
+  </div></div>
+  
+  <div id="webact" class="slide"><div>
+    <section>
+      <header>
+        <h2>Getting Started With Web Activities</h2>
+      </header>
+      <ul class="longlist">
+        <li>Call an activity and get presented with apps that can handle that</li>
+        <li>Register your activity support for your web app in the manifest file</li>
+        <li>Register activity support on-the-fly</li>
+        <li>Attach a handler to your app for when that activity occur</li>
+      </ul>    
+      <footer class="notes">
+      </footer>
+    </section>
+  </div></div>
+  
+  <div id="webact2" class="slide"><div>
+    <section>
+      <header>
+        <h2>Calling an activity</h2>
+      </header>
+      <ul class="longlist">
+        <p>Let’s say you have a button in your app, and you want to be able to get a picture – either from the Gallery, Camera or any other app in Firefox OS that supports that activity. You can then call the pick activity, like this:</p>
+      </ul>
+	  <pre>
+        <code>  var pick = new MozActivity({</code>
+        <code>    name: "pick",{</code>
+        <code>    data: {</code>
+        <code>         type: ["image/png", "image/jpg", "image/jpeg"]</code>
+        <code>    }</code>
+		<code> });</code>
+      </pre>
+      <footer class="notes">
+      </footer>
+    </section>
+  </div></div>
+
+<div id="webact3" class="slide"><div>
+    <section>
+      <header>
+        <h2>Calling an activity</h2>
+      </header>
+      <ul class="longlist">
+        <p>In this example, we specify the name <code>pick</code> and the data to be PNG or JPEG images. You will then be presented with a menu of available activities in Firefox OS:</p>
+      <img src="pictures/fxos/pick-activity.jpg" alt="Pick activity" class="centre shadow">
+	  
+	  </ul>
+	  <footer class="notes">
+	  As a user, you choose the app you want to pick an image from – or take a picture with the Camera – and once you’ve done so, the result will be posted back to the requesting app (Note: it is chosen from within the app handling the activity what, and if, something will be returned)
+      </footer>
+    </section>
+  </div></div>
+  
+  <div id="webact4" class="slide"><div>
+    <section>
+      <header>
+        <h2>Handling the response</h2>
+      </header>
+      <ul class="longlist">
+        <p>For most WebAPIs, including Web Activities, you will have <code>onsuccess</code> and <code>onerror</code> event handlers. In the case of an image/file you will get a <code>blob</code> back. You can then represent that returned image visually directly in your app:</p>
+      </ul>
+	  <img src="pictures/capture2.jpg" alt="Pick activity" class="centre shadow">
+	  
+      <footer class="notes">
+      </footer>
+    </section>
+  </div></div>
+  
+  <div id="webact6" class="slide"><div>
+    <section>
+      <header>
+        <h2>Register your app for an activity</h2>
+      </header>
+      <ul class="longlist">
+        <p>you can also set your app as a handler for certain activities. There are two ways to do that:</p>
+		</header>
+        <p>1.Through the manifest file – declaration registration</p>
+      <img src="pictures/capture1.jpg" alt="Pick activity" class="centre shadow">
+	  
+      <footer class="notes">
+      </footer>
+    </section>
+  </div></div>
+  
+   <div id="webact8" class="slide"><div>
+    <section>
+      <header>
+      <ul class="longlist">
+        
+		</header>
+        <p>2.Register an activity handler – dynamic registration</p>
+      <img src="pictures/capture3.jpg" alt="Pick activity" class="centre shadow">
+	  <p>and then handle the activity:</p>
+	  <img src="pictures/capture4.jpg" alt="Pick activity" class="centre shadow">
+      <footer class="notes">
+      </footer>
+    </section>
+  </div></div>
+  
+  
+
+  <div id="activities" class="slide"><div>
+    <section>
+      <header>
+        <h2>Web activities</h2>
+      </header>
+      <ul class="lots">
+        <li>configure</li>
+        <li>costcontrol</li>
+        <li>dial</li>
+        <li>open</li>
+        <li>pick</li>
+        <li>record</li>
+        <li>save-bookmark</li>
+        <li>share</li>
+        <li>view</li>
+        <li>new, f.e type: “websms/sms” or “webcontacts/contact” </li>
+      </ul>
+    <footer class="notes">
+      If you want to access the camera or the address book without packaging your application, there is an alternative called Web Activities. These are much like Web Intents were for Chrome, but more focused on real use cases of the web rather than Android. Using Web Activities you can access the hardware without having to authenticate on the user's behalf. Instead, the users get prompted to use the apps they always use to give you what your app wants.
+    </footer>
+    </section>
+  </div></div>
+
+ <div id="callactivity" class="slide"><div>
+    <section>
+      <header>
+        <h2>Sending a number to the phone</h2>
+      </header>
+      <pre>
+        <code>var call = new MozActivity({</code>
+        <code>  name: "dial",</code>
+        <code>  data: {</code>
+        <code>    number: "+1804100100"</code>
+        <code>  }</code>
+        <code>});</code>
+      </pre>
+      <footer class="notes">
+        <img src="pictures/capture5.jpg" alt="Pick activity" class="centre shadow">
+      </footer>
+    </section>
+  </div></div>
+
+  <div id="imageactivity" class="slide"><div>
+    <section>
+      <header>
+        <h2>New SMS</h2>
+      </header>
+      <img src="pictures/capture6.jpg" alt="Pick activity" class="right shadow">
+      <footer class="notes">
+        <img src="pictures/capture7.jpg" alt="Pick activity" class="right shadow"> 
+      </footer>
+    </section>
+  </div></div>
+
+  <div id="imageactivity2" class="slide"><div>
+    <section>
+      <header>
+        <h2>view url</h2>
+      </header>
+	  <img src="pictures/capture9.jpg" alt="Pick activity" class="right shadow">
+      
+      <footer class="notes">
+	  <img src="pictures/capture8.jpg" alt="Pick activity" class="right shadow">
+       </footer>
+    </section>
+  </div></div>
+
+
+  <div id="boilerplate" class="slide"><div>
+    <section>
+      <header>
+        <h2>Web Activities Boiler Plate</h2>
+      </header>
+      <img src="pictures/fxos/boilerplate.jpg" 
+           alt="Firefox OS Boiler Plate" 
+           class="middle shadow" height="400">
+      <p class="demourl">
+        <a href="https://github.com/robnyman/Firefox-OS-Boilerplate-App">Firefox OS Boiler Plate app</a>
+      </p>
+    <footer class="notes">
+      The Firefox OS Boiler Plate app by Robert Nyman is a perfect start to get accustomed to Web Activities. It is a showcase of buttons calling different web activities. Simply use the ones you want to have and delete the others. The code is highly commented to show you where to put your functionality. 
+    </footer>
+    </section>
+  </div></div>
+
+  <div id="zomgactivities5" class="slide shout"><div>
+    <section>
+      <header>
+        <h2>DEMO TIME!!</h2>
+      </header>
+    <footer class="notes">
+    </footer>
+    </section>
+  </div></div>
+  
+  <div id="thanks" class="slide"><div>
+    <section>
+      <header>
+       <h2><u>Sources:</u></h2>
+	   </header>
+      
+        <li><a href="https://wiki.mozilla.org/WebAPI/WebActivities">Mozilla Wiki on WebAPI/WebActivities</a></li>
+		<li><a href="https://hacks.mozilla.org/2013/01/introducing-web-activities/">Introduction To Web Activities  by Robert Nyman </a> </li>
+        </ul>
+        
+      
+
+    <footer class="notes">
+    </footer>
+
+    </section>
+  </div></div>
+  
+  <div id="zomgactivities4" class="slide shout"><div>
+    <section>
+      <header>
+        <h2>THANK YOU</h2>
+      </header>
+	  <footer class="notes">
+    </footer>
+    </section>
+  </div></div>
+  
+
+<!-- ===================================================================
+AND… I'M SPENT
+======================================================================== -->
+
+  
+  
+  
+
+  <!--
+    To hide progress bar from entire presentation
+    just remove “progress” element.
+    -->
+	<div class="progress"><div></div></div>
+  
+  <script src="scripts/script.js"></script>
+  <!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
+</body>
+</html>
